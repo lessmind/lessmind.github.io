@@ -33,7 +33,7 @@ vim .env
 ```
 
 Errbit site config
-{% codeblock lang:nginx /etc/nginx/sites-available/errbit.conf %}
+{% codeblock lang:Nginx /etc/nginx/sites-available/errbit.conf %}
 server {
     server_name errbit.example.com;
     root /var/webapps/errbit/public;
