@@ -3,17 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Some notes</title>
+  <title>Redmine repositories from gitolite | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Some notes">
-<meta property="og:url" content="http://lessmind.github.io/archives/index.html">
+  <meta name="description" content="Only two steps:
+
+Let www-data have read access of /path-to-gitolite-root/repositories
+1234567cd /path-to-gitolite-root# let all repos readable for all users, but not writable except ownerchmod a+rX,go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redmine repositories from gitolite">
+<meta property="og:url" content="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/index.html">
 <meta property="og:site_name" content="Some notes">
-<meta property="og:description">
+<meta property="og:description" content="Only two steps:
+
+Let www-data have read access of /path-to-gitolite-root/repositories
+1234567cd /path-to-gitolite-root# let all repos readable for all users, but not writable except ownerchmod a+rX,go">
+<meta property="og:updated_time" content="2015-10-11T07:31:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Some notes">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Redmine repositories from gitolite">
+<meta name="twitter:description" content="Only two steps:
+
+Let www-data have read access of /path-to-gitolite-root/repositories
+1234567cd /path-to-gitolite-root# let all repos readable for all users, but not writable except ownerchmod a+rX,go">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
@@ -77,115 +87,74 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/11/Redmine-repositories-from-gitolite/" class="archive-article-date">
-  <time datetime="2015-10-11T06:47:04.000Z" itemprop="datePublished">Oct 11</time>
+        <section id="main"><article id="post-Redmine-repositories-from-gitolite" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/11/Redmine-repositories-from-gitolite/" class="article-date">
+  <time datetime="2015-10-11T06:47:04.000Z" itemprop="datePublished">2015-10-11</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MIS/">MIS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/11/Redmine-repositories-from-gitolite/">Redmine repositories from gitolite</a>
+    <h1 class="article-title" itemprop="name">
+      Redmine repositories from gitolite
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/mutt-on-OS-X/" class="archive-article-date">
-  <time datetime="2015-10-09T13:03:15.000Z" itemprop="datePublished">Oct 9</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/mutt-on-OS-X/">mutt on OS X</a>
-    </h1>
-  
+        <p>Only two steps:</p>
+<ol>
+<li><p>Let www-data have read access of /path-to-gitolite-root/repositories</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path-to-gitolite-root</span><br><span class="line"></span><br><span class="line"><span class="comment"># let all repos readable for all users, but not writable except owner</span></span><br><span class="line">chmod a+rX,go-w -R repositories</span><br><span class="line"></span><br><span class="line"><span class="comment"># keep gitolite-admin remains only readable/writable by owner</span></span><br><span class="line">chmod go-rwX -R repositories/gitolite-admin.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Keep it that way when gitolite add any new things</p>
+<figure class="highlight bash"><figcaption><span>/path-to-gitolite-root/.gitolite.rc</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%RC = (</span><br><span class="line">	...</span><br><span class="line">	<span class="comment">#UMASK =&gt; 0077,</span></span><br><span class="line">	UMASK =&gt; <span class="number">0022</span>, <span class="comment"># now any new repo will keep rx permissions of groups &amp; others</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure></li>
+</ol>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/Nginx-with-Passenger/" class="archive-article-date">
-  <time datetime="2015-10-09T12:58:51.000Z" itemprop="datePublished">Oct 9</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/Nginx-with-Passenger/">Nginx with Passenger</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/Install-Errbit-4-x/" class="archive-article-date">
-  <time datetime="2015-10-09T12:49:47.000Z" itemprop="datePublished">Oct 9</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="cifm5erna00080tic3lldwebk" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/Install-Errbit-4-x/">Install Errbit 4.x</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/Moving-gitolite/" class="archive-article-date">
-  <time datetime="2015-10-09T12:48:50.000Z" itemprop="datePublished">Oct 9</time>
-</a>
+        <a href="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/Moving-gitolite/">Moving gitolite</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitolite/">gitolite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redmine/">redmine</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/09/mutt-on-OS-X/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">mutt on OS X</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -276,11 +245,13 @@
 <script>
   var disqus_shortname = 'nevermindsnote';
   
+  var disqus_url = 'http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//go.disqus.com/count.js';
+    dsq.src = '//go.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
