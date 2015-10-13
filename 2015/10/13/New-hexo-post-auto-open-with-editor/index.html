@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: mac | Some notes</title>
+  <title>New hexo post auto open with editor | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Some notes">
-<meta property="og:url" content="http://lessmind.github.io/categories/mac/index.html">
+  <meta name="description" content="Just add a simple script (from here)/path-to-hexo-root/scripts/open-new.js1234567891011var exec = require(&apos;child_process&apos;).exec;hexo.on(&apos;new&apos;, function(data) &amp;#123;    exec(&apos;hexo server&apos;); // start pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="New hexo post auto open with editor">
+<meta property="og:url" content="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/index.html">
 <meta property="og:site_name" content="Some notes">
-<meta property="og:description">
+<meta property="og:description" content="Just add a simple script (from here)/path-to-hexo-root/scripts/open-new.js1234567891011var exec = require(&apos;child_process&apos;).exec;hexo.on(&apos;new&apos;, function(data) &amp;#123;    exec(&apos;hexo server&apos;); // start pr">
+<meta property="og:updated_time" content="2015-10-13T01:23:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Some notes">
-<meta name="twitter:description">
+<meta name="twitter:title" content="New hexo post auto open with editor">
+<meta name="twitter:description" content="Just add a simple script (from here)/path-to-hexo-root/scripts/open-new.js1234567891011var exec = require(&apos;child_process&apos;).exec;hexo.on(&apos;new&apos;, function(data) &amp;#123;    exec(&apos;hexo server&apos;); // start pr">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
@@ -77,39 +78,67 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/mutt-on-OS-X/" class="archive-article-date">
-  <time datetime="2015-10-09T13:03:15.000Z" itemprop="datePublished">Oct 9</time>
+        <section id="main"><article id="post-New-hexo-post-auto-open-with-editor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/13/New-hexo-post-auto-open-with-editor/" class="article-date">
+  <time datetime="2015-10-13T00:51:56.000Z" itemprop="datePublished">2015-10-13</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/mutt-on-OS-X/">mutt on OS X</a>
+    <h1 class="article-title" itemprop="name">
+      New hexo post auto open with editor
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Just add a simple script (from <a href="https://github.com/hexojs/hexo/issues/1007" target="_blank" rel="external">here</a>)<br><figure class="highlight javascript"><figcaption><span>/path-to-hexo-root/scripts/open-new.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exec = <span class="built_in">require</span>(<span class="string">'child_process'</span>).exec;</span><br><span class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    exec(<span class="string">'hexo server'</span>); <span class="comment">// start preview server</span></span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	<span class="comment">// couldn't find a server started event</span></span><br><span class="line">    	<span class="comment">// so just workaround to do in 3s later</span></span><br><span class="line">        exec(<span class="string">'open -a "Google Chrome" "http://0.0.0.0:4000"'</span>); <span class="comment">// open preview url</span></span><br><span class="line">        <span class="comment">// open with editor (in this case using Sublime Text and also open cwd together)</span></span><br><span class="line">        exec(<span class="string">'open -a "Sublime Text" '</span>+process.cwd()+<span class="string">' '</span>+data.path);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="cifoot2yt000lhiic3umed98q" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/11/Redmine-repositories-from-gitolite/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Redmine repositories from gitolite</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -200,11 +229,13 @@
 <script>
   var disqus_shortname = 'nevermindsnote';
   
+  var disqus_url = 'http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//go.disqus.com/count.js';
+    dsq.src = '//go.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

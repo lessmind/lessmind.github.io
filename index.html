@@ -79,6 +79,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-New-hexo-post-auto-open-with-editor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/13/New-hexo-post-auto-open-with-editor/" class="article-date">
+  <time datetime="2015-10-13T00:51:56.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/New-hexo-post-auto-open-with-editor/">New hexo post auto open with editor</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Just add a simple script (from <a href="https://github.com/hexojs/hexo/issues/1007" target="_blank" rel="external">here</a>)<br><figure class="highlight javascript"><figcaption><span>/path-to-hexo-root/scripts/open-new.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exec = <span class="built_in">require</span>(<span class="string">'child_process'</span>).exec;</span><br><span class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    exec(<span class="string">'hexo server'</span>); <span class="comment">// start preview server</span></span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	<span class="comment">// couldn't find a server started event</span></span><br><span class="line">    	<span class="comment">// so just workaround to do in 3s later</span></span><br><span class="line">        exec(<span class="string">'open -a "Google Chrome" "http://0.0.0.0:4000"'</span>); <span class="comment">// open preview url</span></span><br><span class="line">        <span class="comment">// open with editor (in this case using Sublime Text and also open cwd together)</span></span><br><span class="line">        exec(<span class="string">'open -a "Sublime Text" '</span>+process.cwd()+<span class="string">' '</span>+data.path);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="cifoot2yt000lhiic3umed98q" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Redmine-repositories-from-gitolite" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/11/Redmine-repositories-from-gitolite/" class="article-date">
@@ -117,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="cifm5erna00080tic3lldwebk" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="cifoot2yn0008hiic1rqkulqo" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -163,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="cifm5ermc00010ticcax7zpzt" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="cifoot2y50001hiicwh3hiz2w" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -210,7 +255,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="cifm5erne00090tictetji8n9" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="cifoot2yr000fhiicaq96pt88" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -260,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="cifm5ernt000m0ticumsycmu4" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="cifoot2z0000vhiic9k33yzdm" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -312,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="cifm5ernk000g0ticca5qhv6z" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="cifoot2yx000qhiic5z6wjv5q" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Moving-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -338,6 +383,10 @@
       <ul>
         
           <li>
+            <a href="/2015/10/13/New-hexo-post-auto-open-with-editor/">New hexo post auto open with editor</a>
+          </li>
+        
+          <li>
             <a href="/2015/10/11/Redmine-repositories-from-gitolite/">Redmine repositories from gitolite</a>
           </li>
         
@@ -353,10 +402,6 @@
             <a href="/2015/10/09/Install-Errbit-4-x/">Install Errbit 4.x</a>
           </li>
         
-          <li>
-            <a href="/2015/10/09/Moving-gitolite/">Moving gitolite</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -366,7 +411,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MIS/">MIS</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MIS/">MIS</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -375,7 +420,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -384,7 +429,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">5</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">6</span></li></ul>
     </div>
   </div>
 
