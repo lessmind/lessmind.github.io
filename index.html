@@ -79,6 +79,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-RabbitMQ-server-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/26/RabbitMQ-server-install/" class="article-date">
+  <time datetime="2015-11-26T09:26:31.000Z" itemprop="datePublished">2015-11-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MIS/">MIS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/26/RabbitMQ-server-install/">RabbitMQ server install</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Install (Ubuntu/Debian)<br><a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install" target="_blank" rel="external">PackageCloud RabbitMQ repository instructions</a><br>Or checkout how to install in <a href="https://www.rabbitmq.com/download.html" target="_blank" rel="external">other systems</a></p>
+<p>Add a new admin user (I don’t like the default <em>guest</em> user, and you can only access it whtin localhost since 3.3.0)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin password <span class="comment"># use any username/password</span></span><br><span class="line">rabbitmqctl <span class="built_in">set</span>_user_tags admin administrator <span class="comment"># tag as an administrator to grant full acess</span></span><br><span class="line">rabbitmqctl <span class="built_in">set</span>_permissions -p / administrator <span class="string">".*"</span> <span class="string">".*"</span> <span class="string">".*"</span></span><br></pre></td></tr></table></figure></p>
+<p>Enable web management panel<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_management</span><br></pre></td></tr></table></figure></p>
+<p>Then checkout your <a href="http://host.to.rabbimq.com:15672/" target="_blank" rel="external">http://host.to.rabbimq.com:15672/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="cihg24w4z000ftwic4il1sqjn" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MQ/">MQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Git-daemon" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/15/Git-daemon/" class="article-date">
@@ -105,12 +153,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Create a daemon for readonly git clone access<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git daemon --base-path=/path-to-gitolite/repositories --export-all</span><br><span class="line"><span class="comment"># --export-all option to export all repos</span></span><br><span class="line"><span class="comment"># or touch a git-daemon-export-ok file under repos needs to be export</span></span><br></pre></td></tr></table></figure></p>
+        <p>Create a daemon for readonly git clone access<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git daemon --base-path=/path-to-gitolite/repositories --export-all</span><br><span class="line"><span class="comment"># --export-all option to export all repos</span></span><br><span class="line"><span class="comment"># or touch a git-daemon-export-ok file under repos needs to be export</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># how to access</span></span><br><span class="line">git <span class="built_in">clone</span> git://git.example.com/ex-repo</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="cifrsmg0x0011tdic68rx4fl8" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="cihg24w5k0015twichvdqq884" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/15/Git-daemon/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -155,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="cifrsmg0l000ntdice25htlxz" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="cihg24w57000rtwicfkg6xvsk" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -207,7 +255,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="cifrsmg0d000atdic428pktq3" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="cihg24w4v0008twicdzkms993" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -253,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="cifrsmg050003tdicvppto59z" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="cihg24w4e0001twiceo4b0vj4" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -300,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="cifrsmg0h000htdicmp4gvjqg" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="cihg24w53000ltwicnwtml8tu" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -350,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="cifrsmg0u000xtdicv25dtlz5" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="cihg24w5e0011twic1bgtiwyr" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -402,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="cifrsmg0p000stdicblprasb7" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="cihg24w5a000wtwic8i0tc9ex" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Moving-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -428,6 +476,10 @@
       <ul>
         
           <li>
+            <a href="/2015/11/26/RabbitMQ-server-install/">RabbitMQ server install</a>
+          </li>
+        
+          <li>
             <a href="/2015/10/15/Git-daemon/">Git daemon</a>
           </li>
         
@@ -443,10 +495,6 @@
             <a href="/2015/10/09/mutt-on-OS-X/">mutt on OS X</a>
           </li>
         
-          <li>
-            <a href="/2015/10/09/Nginx-with-Passenger/">Nginx with Passenger</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -456,7 +504,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MIS/">MIS</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MIS/">MIS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -465,7 +513,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -474,7 +522,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 
