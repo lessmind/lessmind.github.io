@@ -1,4 +1,5 @@
 .DS_Store
+*.sublime-*
 Thumbs.db
 db.json
 *.log
