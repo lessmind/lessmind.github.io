@@ -10,7 +10,7 @@ Install (Ubuntu/Debian)
 [PackageCloud RabbitMQ repository instructions](https://packagecloud.io/rabbitmq/rabbitmq-server/install)
 Or checkout how to install in [other systems](https://www.rabbitmq.com/download.html)
 
-Add a new admin user (I don't like the default _guest_ user, and you can only access it whtin localhost since 3.3.0)
+Add a new admin user (I don't like the default _guest_ user, and you can only access it within localhost since 3.3.0)
 {% codeblock lang:bash %}
 rabbitmqctl add_user admin password # use any username/password
 rabbitmqctl set_user_tags admin administrator # tag as an administrator to grant full acess
