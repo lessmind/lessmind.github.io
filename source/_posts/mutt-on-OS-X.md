@@ -1,10 +1,9 @@
 title: mutt on OS X
 date: 2015-10-09 21:03:15
-categories:
-- mac
 tags:
 - mutt
 - OS X
+- mac
 ---
 
 Need [Homebrew](http://brew.sh/)

@@ -1,10 +1,11 @@
 title: RabbitMQ server install
 date: 2015-11-26 17:26:31
-category:
+categories:
 - MIS
 tags:
 - RabbitMQ
 - MQ
+- message queue
 ---
 Install (Ubuntu/Debian)
 [PackageCloud RabbitMQ repository instructions](https://packagecloud.io/rabbitmq/rabbitmq-server/install)

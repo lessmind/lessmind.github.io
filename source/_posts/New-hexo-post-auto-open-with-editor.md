@@ -1,7 +1,5 @@
 title: New hexo post auto open with editor
 date: 2015-10-13 08:51:56
-categories:
-- hexo
 tags:
 - hexo
 ---
