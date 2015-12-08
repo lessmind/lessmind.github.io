@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: redmine | Some notes</title>
+  <title>Using gmail api via service account credential | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Some notes">
-<meta property="og:url" content="http://lessmind.github.io/tags/redmine/index.html">
+  <meta name="description" content="For some reason, I need to grab a mail attachment to store its content into database everyday.
+So obviously I can’t use the normal OAuth approach because no one can authorized this action every day, t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Using gmail api via service account credential">
+<meta property="og:url" content="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/index.html">
 <meta property="og:site_name" content="Some notes">
-<meta property="og:description">
+<meta property="og:description" content="For some reason, I need to grab a mail attachment to store its content into database everyday.
+So obviously I can’t use the normal OAuth approach because no one can authorized this action every day, t">
+<meta property="og:updated_time" content="2015-12-08T14:07:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Some notes">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Using gmail api via service account credential">
+<meta name="twitter:description" content="For some reason, I need to grab a mail attachment to store its content into database everyday.
+So obviously I can’t use the normal OAuth approach because no one can authorized this action every day, t">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
@@ -77,39 +81,73 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/11/Redmine-repositories-from-gitolite/" class="archive-article-date">
-  <time datetime="2015-10-11T06:47:04.000Z" itemprop="datePublished">Oct 11</time>
+        <section id="main"><article id="post-Using-gmail-api-via-service-account-credential" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/" class="article-date">
+  <time datetime="2015-12-08T12:36:33.000Z" itemprop="datePublished">2015-12-08</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/11/Redmine-repositories-from-gitolite/">Redmine repositories from gitolite</a>
+    <h1 class="article-title" itemprop="name">
+      Using gmail api via service account credential
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>For some reason, I need to grab a mail attachment to store its content into database everyday.</p>
+<p>So obviously I can’t use the normal OAuth approach because no one can authorized this action every day, that leaves <strong>service account</strong> to get this thing done.</p>
+<p>First, I need a service account, follow the <a href="https://developers.google.com/identity/protocols/OAuth2ServiceAccount" target="_blank" rel="external">instructions</a> of <strong>Creating a service account</strong> section</p>
+<p>And as a service account to access gmail, I have to impersonate as some real user to access thier mails, I could only do that in a Google Apps for Work domain.</p>
+<p>To do so, I checked the next section of <a href="https://developers.google.com/identity/protocols/OAuth2ServiceAccount" target="_blank" rel="external">document</a>, <strong>Delegating domain-wide authority to the service account</strong>.</p>
+<p>But I can’t find the <strong>client id</strong> on the web console anywhere, I do find one client_id field in the .json key file though, which the <strong>Manage API client access</strong> panel doesn’t accept it at all.<br><a id="more"></a><br>And I can’t find any solution on google search / google products forum / stackoverfow either, then I finally found something on th developer console, thanks to my co-worker.</p>
+<p>In the <strong>Credentials</strong> panel, go to the <strong>Manage service accounts link</strong> (on the top-right corner of service account credentails table), click the little icon on the end of the service account row, click Edit, then there’s a popup with a input text to change account name, <strong>AND</strong> a checkbox called <strong>Enable Google Apps Domain-wide Delegation</strong>.</p>
+<p>After that, I finally got a client id on developer console, and able to authenticate something on the <strong>Manage API client access</strong> panel.</p>
+<p>But it’s not done yet, I should use the <strong>sub</strong> parameter in <strong>Google_Auth_AssertionCredentials</strong> to specify which user to impersonate.</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$credential</span> = <span class="keyword">new</span> Google_Auth_AssertionCredentials(</span><br><span class="line">	<span class="string">'service-account@with-some-dummy-domain'</span>,</span><br><span class="line">	<span class="variable">$scopes</span>, <span class="comment">// should be the same as the scope in Manage API client access panel</span></span><br><span class="line">	file_get_contents(<span class="string">'/path/to/p12/key/file'</span>),</span><br><span class="line">	<span class="string">'notasecret'</span>, <span class="comment">// the default password</span></span><br><span class="line">	<span class="string">'http://oauth.net/grant_type/jwt/1.0/bearer'</span>, <span class="comment">// assertionType</span></span><br><span class="line">	<span class="string">'some@real-user.com'</span> <span class="comment">// the user mail to impersonate</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Now we’re done.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/" data-id="cihxgozob0008jziccc9bqcny" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Google-API/">Google API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/26/RabbitMQ-server-install/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RabbitMQ server install</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -200,11 +238,13 @@
 <script>
   var disqus_shortname = 'nevermindsnote';
   
+  var disqus_url = 'http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//go.disqus.com/count.js';
+    dsq.src = '//go.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

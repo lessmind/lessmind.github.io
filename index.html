@@ -79,6 +79,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Using-gmail-api-via-service-account-credential" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/" class="article-date">
+  <time datetime="2015-12-08T12:36:33.000Z" itemprop="datePublished">2015-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/08/Using-gmail-api-via-service-account-credential/">Using gmail api via service account credential</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>For some reason, I need to grab a mail attachment to store its content into database everyday.</p>
+<p>So obviously I can’t use the normal OAuth approach because no one can authorized this action every day, that leaves <strong>service account</strong> to get this thing done.</p>
+<p>First, I need a service account, follow the <a href="https://developers.google.com/identity/protocols/OAuth2ServiceAccount">instructions</a> of <strong>Creating a service account</strong> section</p>
+<p>And as a service account to access gmail, I have to impersonate as some real user to access thier mails, I could only do that in a Google Apps for Work domain.</p>
+<p>To do so, I checked the next section of <a href="https://developers.google.com/identity/protocols/OAuth2ServiceAccount">document</a>, <strong>Delegating domain-wide authority to the service account</strong>.</p>
+<p>But I can’t find the <strong>client id</strong> on the web console anywhere, I do find one client_id field in the .json key file though, which the <strong>Manage API client access</strong> panel doesn’t accept it at all.<br>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/" data-id="cihxgozob0008jziccc9bqcny" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Google-API/">Google API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-RabbitMQ-server-install" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/11/26/RabbitMQ-server-install/" class="article-date">
@@ -113,12 +163,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="cihg24w4z000ftwic4il1sqjn" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="cihxgozph000kjzic76hj4l0e" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MQ/">MQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MQ/">MQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/message-queue/">message queue</a></li></ul>
 
     </footer>
   </div>
@@ -158,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="cihg24w5k0015twichvdqq884" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="cihxgozs6001ajzickj20nue2" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/15/Git-daemon/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -178,10 +228,6 @@
   <time datetime="2015-10-13T00:51:56.000Z" itemprop="datePublished">2015-10-13</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -203,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="cihg24w57000rtwicfkg6xvsk" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="cihxgozql000yjzicqpu37mtk" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -255,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="cihg24w4v0008twicdzkms993" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="cihxgozol000djzice0kusyx2" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -275,10 +321,6 @@
   <time datetime="2015-10-09T13:03:15.000Z" itemprop="datePublished">2015-10-09</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/mac/">mac</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -301,12 +343,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="cihg24w4e0001twiceo4b0vj4" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="cihxgozna0001jzic27yujjzi" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS-X/">OS X</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mutt/">mutt</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS-X/">OS X</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mutt/">mutt</a></li></ul>
 
     </footer>
   </div>
@@ -348,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="cihg24w53000ltwicnwtml8tu" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="cihxgozq2000sjziclcfbbind" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -398,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="cihg24w5e0011twic1bgtiwyr" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="cihxgozrk0016jzicwva513q4" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -450,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="cihg24w5a000wtwic8i0tc9ex" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="cihxgozqv0011jzicf29dvit5" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Moving-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -476,6 +518,10 @@
       <ul>
         
           <li>
+            <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/">Using gmail api via service account credential</a>
+          </li>
+        
+          <li>
             <a href="/2015/11/26/RabbitMQ-server-install/">RabbitMQ server install</a>
           </li>
         
@@ -491,10 +537,6 @@
             <a href="/2015/10/11/Redmine-repositories-from-gitolite/">Redmine repositories from gitolite</a>
           </li>
         
-          <li>
-            <a href="/2015/10/09/mutt-on-OS-X/">mutt on OS X</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -504,7 +546,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MIS/">MIS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MIS/">MIS</a><span class="category-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -513,7 +555,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-API/">Google API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/message-queue/">message queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -522,7 +564,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 
