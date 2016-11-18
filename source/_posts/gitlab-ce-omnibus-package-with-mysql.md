@@ -35,6 +35,7 @@ cd /opt/gitlab/embedded/bin/ # use the gem binary package builded
 ```
 
 Tell GitLab bundle to ignore PostgreSQL instead of MySQL
+(will be revert if gitlab-ce updated, need to manuallly redo when update)
 {% codeblock lang:bash /opt/gitlab/embedded/service/gitlab-rails/.bundle/config %}
 ---
 BUNDLE_RETRY: "5"
