@@ -8,7 +8,9 @@ Mostly follow instructions [here](https://blog.vitalis.io/posts/2016/04/04/gitla
 
 This post just created in case that post gone, and some personal note.
 
-First, install gitlab-ce with the official instructions, then create a mysql database & user for gitlab.
+<!-- more -->
+
+First, install gitlab-ce by the official instructions, and create a mysql database and a user with access ready for gitlab.
 
 Here goes the configurations
 
