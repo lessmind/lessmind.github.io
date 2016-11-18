@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Some notes</title>
+  <title>Configure Gitlab CE (Omnibus package) to work with MySQL | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Some notes">
-<meta property="og:url" content="http://lessmind.github.io/archives/index.html">
+  <meta name="description" content="Mostly follow instructions here, thanks for vitalis
+This post just created in case that post gone, and some personal note.
+First, install gitlab-ce with the official instructions, then create a mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configure Gitlab CE (Omnibus package) to work with MySQL">
+<meta property="og:url" content="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/index.html">
 <meta property="og:site_name" content="Some notes">
-<meta property="og:description">
+<meta property="og:description" content="Mostly follow instructions here, thanks for vitalis
+This post just created in case that post gone, and some personal note.
+First, install gitlab-ce with the official instructions, then create a mysql">
+<meta property="og:updated_time" content="2016-11-18T07:35:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Some notes">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Configure Gitlab CE (Omnibus package) to work with MySQL">
+<meta name="twitter:description" content="Mostly follow instructions here, thanks for vitalis
+This post just created in case that post gone, and some personal note.
+First, install gitlab-ce with the official instructions, then create a mysql">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
@@ -77,220 +84,71 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" class="archive-article-date">
-  <time datetime="2016-11-18T07:22:39.000Z" itemprop="datePublished">Nov 18</time>
+        <section id="main"><article id="post-gitlab-ce-omnibus-package-with-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" class="article-date">
+  <time datetime="2016-11-18T07:22:39.000Z" itemprop="datePublished">2016-11-18</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/">Configure Gitlab CE (Omnibus package) to work with MySQL</a>
+    <h1 class="article-title" itemprop="name">
+      Configure Gitlab CE (Omnibus package) to work with MySQL
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/" class="archive-article-date">
-  <time datetime="2015-12-08T12:36:33.000Z" itemprop="datePublished">Dec 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/08/Using-gmail-api-via-service-account-credential/">Using gmail api via service account credential</a>
-    </h1>
-  
+        <p>Mostly follow instructions <a href="https://blog.vitalis.io/posts/2016/04/04/gitlabce-omnibus-mysql/" target="_blank" rel="external">here</a>, thanks for <a href="https://blog.vitalis.io/" target="_blank" rel="external">vitalis</a></p>
+<p>This post just created in case that post gone, and some personal note.</p>
+<p>First, install gitlab-ce with the official instructions, then create a mysql database &amp; user for gitlab.</p>
+<p>Here goes the configurations</p>
+<p>Switch db adaptor to mysql2, fill up connection info, disable PostgreSQL<br><figure class="highlight ruby"><figcaption><span>/etc/gitlab/gitlab.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># configure to use mysql</span></span><br><span class="line">gitlab_rails[<span class="string">'db_adapter'</span>] = <span class="string">"mysql2"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_encoding'</span>] = <span class="string">"utf8"</span> <span class="comment"># must be utf8, utf8mb4 will cause index size too large error</span></span><br><span class="line">gitlab_rails[<span class="string">'db_database'</span>] = <span class="string">"gitlabhq_production"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_username'</span>] = <span class="string">"gitlab"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_password'</span>] = <span class="string">"gitlabdb"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_host'</span>] = <span class="string">"127.0.0.1"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_port'</span>] = <span class="number">3306</span></span><br><span class="line">postgresql[<span class="string">'enable'</span>] = <span class="keyword">false</span></span><br></pre></td></tr></table></figure></p>
+<p>Build <code>mysql2</code> gem<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install libmysqlclient-dev gcc <span class="comment"># need some dependency</span></span><br><span class="line"><span class="built_in">cd</span> /opt/gitlab/embedded/bin/ <span class="comment"># use the gem binary package builded</span></span><br><span class="line">./gem install mysql2 -- --with-mysql-lib=/usr/lib64/mysql</span><br></pre></td></tr></table></figure></p>
+<p>Tell GitLab bundle to ignore PostgreSQL instead of MySQL<br><figure class="highlight bash"><figcaption><span>/opt/gitlab/embedded/service/gitlab-rails/.bundle/config</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">BUNDLE_RETRY: <span class="string">"5"</span></span><br><span class="line">BUNDLE_PATH: <span class="string">"/opt/gitlab/embedded/service/gem"</span></span><br><span class="line">BUNDLE_JOBS: <span class="string">"9"</span></span><br><span class="line">BUNDLE_WITHOUT: <span class="string">"development:test:postgres"</span></span><br><span class="line">BUNDLE_DISABLE_SHARED_GEMS: <span class="string">"true"</span></span><br></pre></td></tr></table></figure></p>
+<p>Install bundle<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/gitlab/embedded/service/gitlab-rails</span><br><span class="line">/opt/gitlab/embedded/bin/bundle install</span><br></pre></td></tr></table></figure></p>
+<p>Reconfigure &amp; restart gitlab<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br><span class="line">gitlab-rake gitlab:setup</span><br></pre></td></tr></table></figure></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/26/RabbitMQ-server-install/" class="archive-article-date">
-  <time datetime="2015-11-26T09:26:31.000Z" itemprop="datePublished">Nov 26</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/26/RabbitMQ-server-install/">RabbitMQ server install</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/15/Git-daemon/" class="archive-article-date">
-  <time datetime="2015-10-15T05:29:43.000Z" itemprop="datePublished">Oct 15</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" data-id="civnh28go0008fxicbo313nse" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/15/Git-daemon/">Git daemon</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/13/New-hexo-post-auto-open-with-editor/" class="archive-article-date">
-  <time datetime="2015-10-13T00:51:56.000Z" itemprop="datePublished">Oct 13</time>
-</a>
+        <a href="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/13/New-hexo-post-auto-open-with-editor/">New hexo post auto open with editor</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/11/Redmine-repositories-from-gitolite/" class="archive-article-date">
-  <time datetime="2015-10-11T06:47:04.000Z" itemprop="datePublished">Oct 11</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/11/Redmine-repositories-from-gitolite/">Redmine repositories from gitolite</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitlab/">gitlab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/mutt-on-OS-X/" class="archive-article-date">
-  <time datetime="2015-10-09T13:03:15.000Z" itemprop="datePublished">Oct 9</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/mutt-on-OS-X/">mutt on OS X</a>
-    </h1>
   
+    <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Using gmail api via service account credential</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/Nginx-with-Passenger/" class="archive-article-date">
-  <time datetime="2015-10-09T12:58:51.000Z" itemprop="datePublished">Oct 9</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/Nginx-with-Passenger/">Nginx with Passenger</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/Install-Errbit-4-x/" class="archive-article-date">
-  <time datetime="2015-10-09T12:49:47.000Z" itemprop="datePublished">Oct 9</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/Install-Errbit-4-x/">Install Errbit 4.x</a>
-    </h1>
-  
 
-    </header>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/09/Moving-gitolite/" class="archive-article-date">
-  <time datetime="2015-10-09T12:48:50.000Z" itemprop="datePublished">Oct 9</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/09/Moving-gitolite/">Moving gitolite</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+</section>
 </section>
         
           <aside id="sidebar">
@@ -381,11 +239,13 @@
 <script>
   var disqus_shortname = 'nevermindsnote';
   
+  var disqus_url = 'http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//go.disqus.com/count.js';
+    dsq.src = '//go.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

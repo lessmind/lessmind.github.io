@@ -79,6 +79,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-gitlab-ce-omnibus-package-with-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" class="article-date">
+  <time datetime="2016-11-18T07:22:39.000Z" itemprop="datePublished">2016-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/">Configure Gitlab CE (Omnibus package) to work with MySQL</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Mostly follow instructions <a href="https://blog.vitalis.io/posts/2016/04/04/gitlabce-omnibus-mysql/" target="_blank" rel="external">here</a>, thanks for <a href="https://blog.vitalis.io/" target="_blank" rel="external">vitalis</a></p>
+<p>This post just created in case that post gone, and some personal note.</p>
+<p>First, install gitlab-ce with the official instructions, then create a mysql database &amp; user for gitlab.</p>
+<p>Here goes the configurations</p>
+<p>Switch db adaptor to mysql2, fill up connection info, disable PostgreSQL<br><figure class="highlight ruby"><figcaption><span>/etc/gitlab/gitlab.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># configure to use mysql</span></span><br><span class="line">gitlab_rails[<span class="string">'db_adapter'</span>] = <span class="string">"mysql2"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_encoding'</span>] = <span class="string">"utf8"</span> <span class="comment"># must be utf8, utf8mb4 will cause index size too large error</span></span><br><span class="line">gitlab_rails[<span class="string">'db_database'</span>] = <span class="string">"gitlabhq_production"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_username'</span>] = <span class="string">"gitlab"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_password'</span>] = <span class="string">"gitlabdb"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_host'</span>] = <span class="string">"127.0.0.1"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_port'</span>] = <span class="number">3306</span></span><br><span class="line">postgresql[<span class="string">'enable'</span>] = <span class="keyword">false</span></span><br></pre></td></tr></table></figure></p>
+<p>Build <code>mysql2</code> gem<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install libmysqlclient-dev gcc <span class="comment"># need some dependency</span></span><br><span class="line"><span class="built_in">cd</span> /opt/gitlab/embedded/bin/ <span class="comment"># use the gem binary package builded</span></span><br><span class="line">./gem install mysql2 -- --with-mysql-lib=/usr/lib64/mysql</span><br></pre></td></tr></table></figure></p>
+<p>Tell GitLab bundle to ignore PostgreSQL instead of MySQL<br><figure class="highlight bash"><figcaption><span>/opt/gitlab/embedded/service/gitlab-rails/.bundle/config</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">BUNDLE_RETRY: <span class="string">"5"</span></span><br><span class="line">BUNDLE_PATH: <span class="string">"/opt/gitlab/embedded/service/gem"</span></span><br><span class="line">BUNDLE_JOBS: <span class="string">"9"</span></span><br><span class="line">BUNDLE_WITHOUT: <span class="string">"development:test:postgres"</span></span><br><span class="line">BUNDLE_DISABLE_SHARED_GEMS: <span class="string">"true"</span></span><br></pre></td></tr></table></figure></p>
+<p>Install bundle<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/gitlab/embedded/service/gitlab-rails</span><br><span class="line">/opt/gitlab/embedded/bin/bundle install</span><br></pre></td></tr></table></figure></p>
+<p>Reconfigure &amp; restart gitlab<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br><span class="line">gitlab-rake gitlab:setup</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" data-id="civnh28go0008fxicbo313nse" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitlab/">gitlab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Using-gmail-api-via-service-account-credential" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/" class="article-date">
@@ -115,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/" data-id="ciqvymxdb000812ic1bnltqp7" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/" data-id="civnh28gr000dfxicrrlkjbgq" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -163,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="ciqvymxdk000k12icw4ooxfyv" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="civnh28gy000pfxic80rqd59s" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -208,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="ciqvymxe6001a12icqafiz582" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="civnh28hi001ffxicb837k3rr" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/15/Git-daemon/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -249,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="ciqvymxds000y12icme6kezg6" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="civnh28h50013fxicfva6oqc0" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -301,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="ciqvymxdf000d12icgv43asj5" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="civnh28gt000ifxicvq1vbqfs" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -343,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="ciqvymxd1000112icgoo4n3m7" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="civnh28g90001fxicdciszamw" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -390,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="ciqvymxdo000s12icz7lq54d3" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="civnh28h2000xfxic62xn0aw8" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -440,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="ciqvymxe2001612icwxdq1i5z" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="civnh28hf001bfxicpifkh6b1" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -492,7 +541,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="ciqvymxdu001112icyisyz1qb" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="civnh28hb0016fxicc33p5hom" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Moving-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -518,6 +567,10 @@
       <ul>
         
           <li>
+            <a href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/">Configure Gitlab CE (Omnibus package) to work with MySQL</a>
+          </li>
+        
+          <li>
             <a href="/2015/12/08/Using-gmail-api-via-service-account-credential/">Using gmail api via service account credential</a>
           </li>
         
@@ -531,10 +584,6 @@
         
           <li>
             <a href="/2015/10/13/New-hexo-post-auto-open-with-editor/">New hexo post auto open with editor</a>
-          </li>
-        
-          <li>
-            <a href="/2015/10/11/Redmine-repositories-from-gitolite/">Redmine repositories from gitolite</a>
           </li>
         
       </ul>
@@ -555,7 +604,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-API/">Google API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/message-queue/">message queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-API/">Google API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/message-queue/">message queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -564,7 +613,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 
