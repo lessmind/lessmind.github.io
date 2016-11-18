@@ -6,21 +6,18 @@
   <title>Configure Gitlab CE (Omnibus package) to work with MySQL | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Mostly follow instructions here, thanks for vitalis
-This post just created in case that post gone, and some personal note.
-First, install gitlab-ce with the official instructions, then create a mysql">
+This post just created in case that post gone, and some personal note.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Configure Gitlab CE (Omnibus package) to work with MySQL">
 <meta property="og:url" content="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/index.html">
 <meta property="og:site_name" content="Some notes">
 <meta property="og:description" content="Mostly follow instructions here, thanks for vitalis
-This post just created in case that post gone, and some personal note.
-First, install gitlab-ce with the official instructions, then create a mysql">
-<meta property="og:updated_time" content="2016-11-18T07:35:19.000Z">
+This post just created in case that post gone, and some personal note.">
+<meta property="og:updated_time" content="2016-11-18T07:39:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Configure Gitlab CE (Omnibus package) to work with MySQL">
 <meta name="twitter:description" content="Mostly follow instructions here, thanks for vitalis
-This post just created in case that post gone, and some personal note.
-First, install gitlab-ce with the official instructions, then create a mysql">
+This post just created in case that post gone, and some personal note.">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
@@ -108,7 +105,8 @@ First, install gitlab-ce with the official instructions, then create a mysql">
       
         <p>Mostly follow instructions <a href="https://blog.vitalis.io/posts/2016/04/04/gitlabce-omnibus-mysql/" target="_blank" rel="external">here</a>, thanks for <a href="https://blog.vitalis.io/" target="_blank" rel="external">vitalis</a></p>
 <p>This post just created in case that post gone, and some personal note.</p>
-<p>First, install gitlab-ce with the official instructions, then create a mysql database &amp; user for gitlab.</p>
+<a id="more"></a>
+<p>First, install gitlab-ce by the official instructions, and create a mysql database and a user with access ready for gitlab.</p>
 <p>Here goes the configurations</p>
 <p>Switch db adaptor to mysql2, fill up connection info, disable PostgreSQL<br><figure class="highlight ruby"><figcaption><span>/etc/gitlab/gitlab.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># configure to use mysql</span></span><br><span class="line">gitlab_rails[<span class="string">'db_adapter'</span>] = <span class="string">"mysql2"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_encoding'</span>] = <span class="string">"utf8"</span> <span class="comment"># must be utf8, utf8mb4 will cause index size too large error</span></span><br><span class="line">gitlab_rails[<span class="string">'db_database'</span>] = <span class="string">"gitlabhq_production"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_username'</span>] = <span class="string">"gitlab"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_password'</span>] = <span class="string">"gitlabdb"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_host'</span>] = <span class="string">"127.0.0.1"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_port'</span>] = <span class="number">3306</span></span><br><span class="line">postgresql[<span class="string">'enable'</span>] = <span class="keyword">false</span></span><br></pre></td></tr></table></figure></p>
 <p>Build <code>mysql2</code> gem<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install libmysqlclient-dev gcc <span class="comment"># need some dependency</span></span><br><span class="line"><span class="built_in">cd</span> /opt/gitlab/embedded/bin/ <span class="comment"># use the gem binary package builded</span></span><br><span class="line">./gem install mysql2 -- --with-mysql-lib=/usr/lib64/mysql</span><br></pre></td></tr></table></figure></p>
