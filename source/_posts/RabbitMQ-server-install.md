@@ -27,3 +27,9 @@ rabbitmq-plugins enable rabbitmq_management
 {% endcodeblock %}
 
 Then checkout your http://host.to.rabbimq.com:15672/
+
+If got any connection problam, make sure rabbit not blocking by `ufw`
+{% codeblock lang:bash %}
+sudo ufw allow 5672
+sudo ufw allow 15672
+{% endcodeblock %}
