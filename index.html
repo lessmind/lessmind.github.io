@@ -201,12 +201,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Install (Ubuntu/Debian)<br><a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install" target="_blank" rel="external">PackageCloud RabbitMQ repository instructions</a><br>Or checkout how to install in <a href="https://www.rabbitmq.com/download.html" target="_blank" rel="external">other systems</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install rabbitmq-server</span><br></pre></td></tr></table></figure></p>
-<p>Add a new admin user (I don’t like the default <em>guest</em> user, and you can only access it within localhost since 3.3.0)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin your_password <span class="comment"># use any username/password</span></span><br><span class="line">rabbitmqctl <span class="built_in">set</span>_user_tags admin administrator <span class="comment"># tag as an administrator to grant full acess</span></span><br><span class="line">rabbitmqctl <span class="built_in">set</span>_permissions -p / admin <span class="string">".*"</span> <span class="string">".*"</span> <span class="string">".*"</span></span><br></pre></td></tr></table></figure></p>
-<p>Enable web management panel<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_management</span><br></pre></td></tr></table></figure></p>
-<p>Then checkout your <a href="http://host.to.rabbimq.com:15672/" target="_blank" rel="external">http://host.to.rabbimq.com:15672/</a></p>
-<p>If got any connection problam, make sure rabbit not blocking by <code>ufw</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow <span class="number">5672</span></span><br><span class="line">sudo ufw allow <span class="number">15672</span></span><br></pre></td></tr></table></figure></p>
-
+        <p>Install (Ubuntu/Debian)<br><a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install">PackageCloud RabbitMQ repository instructions</a><br>Or checkout how to install in <a href="https://www.rabbitmq.com/download.html">other systems</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install rabbitmq-server</span><br></pre></td></tr></table></figure></p>
+        
+          <p class="article-more-link">
+            <a href="/2015/11/26/RabbitMQ-server-install/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
