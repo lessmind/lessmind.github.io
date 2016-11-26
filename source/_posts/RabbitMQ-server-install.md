@@ -14,6 +14,8 @@ Or checkout how to install in [other systems](https://www.rabbitmq.com/download.
 apt-get install rabbitmq-server
 {% endcodeblock %}
 
+<!-- more -->
+
 Add a new admin user (I don't like the default _guest_ user, and you can only access it within localhost since 3.3.0)
 {% codeblock lang:bash %}
 rabbitmqctl add_user admin your_password # use any username/password
@@ -33,3 +35,20 @@ If got any connection problam, make sure rabbit not blocking by `ufw`
 sudo ufw allow 5672
 sudo ufw allow 15672
 {% endcodeblock %}
+
+Change file descriptors limits to 4096
+{% codeblock lang:bash /etc/rabbitmq/rabbitmq-env.conf %}
+ulimit -S -n 4096
+{% endcodeblock %}
+
+Chane disk free limit
+{% codeblock lang:python /etc/rabbitmq/rabbitmq.config %}
+[
+        {rabbit, [{disk_free_limit, "64GB"}]}
+].
+{% endcodeblock %}
+
+Show current configs
+```bash
+rabbitmqctl status
+```
