@@ -20,16 +20,17 @@ bundle install
 ```
 
 <!-- more -->
-Initial database and compile assets
-```bash
-rake errbit:bootstrap RAILS_ENV=production
-rake assets:precompile
-```
 
 Configuration
 ```bash
 cp .env.default .env
 vim .env
+```
+
+Initial database and compile assets
+```bash
+RAILS_ENV=production rake errbit:bootstrap
+RAILS_ENV=production rake assets:precompile
 ```
 
 Errbit site config
@@ -46,4 +47,9 @@ Enable and start in nginx
 ```bash
 ln -s /etc/nginx/sites-available/errbit.conf /etc/nginx/sites-enabled/
 service nginx resart
+```
+
+Restart Errbit
+```bash
+touch /var/webapps/errbit/tmp/restart.txt
 ```
