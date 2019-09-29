@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <script data-ad-client="ca-pub-7758453423688329" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <meta charset="utf-8">
   
   <title>RabbitMQ server install | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Install (Ubuntu/Debian)PackageCloud RabbitMQ repository instructionsOr checkout how to install in other systems1apt-get install rabbitmq-server">
+<meta name="keywords" content="RabbitMQ,MQ,message queue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RabbitMQ server install">
 <meta property="og:url" content="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/index.html">
 <meta property="og:site_name" content="Some notes">
 <meta property="og:description" content="Install (Ubuntu/Debian)PackageCloud RabbitMQ repository instructionsOr checkout how to install in other systems1apt-get install rabbitmq-server">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2016-11-26T04:20:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RabbitMQ server install">
@@ -21,7 +24,7 @@
   
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -35,7 +38,7 @@
   })();
 </script>
 
-</head>
+</head></html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -72,7 +75,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lessmind.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lessmind.github.io"></form>
       </div>
     </div>
   </div>
@@ -104,20 +107,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Install (Ubuntu/Debian)<br><a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install" target="_blank" rel="external">PackageCloud RabbitMQ repository instructions</a><br>Or checkout how to install in <a href="https://www.rabbitmq.com/download.html" target="_blank" rel="external">other systems</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install rabbitmq-server</span><br></pre></td></tr></table></figure></p>
+        <p>Install (Ubuntu/Debian)<br><a href="https://packagecloud.io/rabbitmq/rabbitmq-server/install" target="_blank" rel="noopener">PackageCloud RabbitMQ repository instructions</a><br>Or checkout how to install in <a href="https://www.rabbitmq.com/download.html" target="_blank" rel="noopener">other systems</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install rabbitmq-server</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<p>Add a new admin user (I don’t like the default <em>guest</em> user, and you can only access it within localhost since 3.3.0)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin your_password <span class="comment"># use any username/password</span></span><br><span class="line">rabbitmqctl <span class="built_in">set</span>_user_tags admin administrator <span class="comment"># tag as an administrator to grant full acess</span></span><br><span class="line">rabbitmqctl <span class="built_in">set</span>_permissions -p / admin <span class="string">".*"</span> <span class="string">".*"</span> <span class="string">".*"</span></span><br></pre></td></tr></table></figure></p>
+<p>Add a new admin user (I don’t like the default <em>guest</em> user, and you can only access it within localhost since 3.3.0)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin your_password <span class="comment"># use any username/password</span></span><br><span class="line">rabbitmqctl set_user_tags admin administrator <span class="comment"># tag as an administrator to grant full acess</span></span><br><span class="line">rabbitmqctl set_permissions -p / admin <span class="string">".*"</span> <span class="string">".*"</span> <span class="string">".*"</span></span><br></pre></td></tr></table></figure></p>
 <p>Enable web management panel<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_management</span><br></pre></td></tr></table></figure></p>
-<p>Then checkout your <a href="http://host.to.rabbimq.com:15672/" target="_blank" rel="external">http://host.to.rabbimq.com:15672/</a></p>
-<p>If got any connection problam, make sure rabbit not blocking by <code>ufw</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow <span class="number">5672</span></span><br><span class="line">sudo ufw allow <span class="number">15672</span></span><br></pre></td></tr></table></figure></p>
-<p>Change file descriptors limits to 4096<br><figure class="highlight bash"><figcaption><span>/etc/rabbitmq/rabbitmq-env.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -S -n <span class="number">4096</span></span><br></pre></td></tr></table></figure></p>
+<p>Then checkout your <a href="http://host.to.rabbimq.com:15672/" target="_blank" rel="noopener">http://host.to.rabbimq.com:15672/</a></p>
+<p>If got any connection problam, make sure rabbit not blocking by <code>ufw</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 5672</span><br><span class="line">sudo ufw allow 15672</span><br></pre></td></tr></table></figure></p>
+<p>Change file descriptors limits to 4096<br><figure class="highlight bash"><figcaption><span>/etc/rabbitmq/rabbitmq-env.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -S -n 4096</span><br></pre></td></tr></table></figure></p>
 <p>Chane disk free limit<br><figure class="highlight python"><figcaption><span>/etc/rabbitmq/rabbitmq.config</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">        &#123;rabbit, [&#123;disk_free_limit, <span class="string">"64GB"</span>&#125;]&#125;</span><br><span class="line">].</span><br></pre></td></tr></table></figure></p>
 <p>Show current configs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl status</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="civnh28gy000pfxic80rqd59s" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="ck15161rb000ari4ncyud7jee" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -225,7 +228,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 nevermind<br>
+      &copy; 2019 nevermind<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -261,11 +264,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
   </div>
 </body>
 </html>

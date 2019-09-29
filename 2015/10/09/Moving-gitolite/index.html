@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <script data-ad-client="ca-pub-7758453423688329" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <meta charset="utf-8">
   
   <title>Moving gitolite | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Step by step introdutions to move a gitolite servermaybe pack these into a script one dayDefinitions:
-OLD - your old gitolite server
-NEW - your clean shiny new gitolite server
-ADMIN - doesn’t matter,">
+  <meta name="description" content="Step by step introdutions to move a gitolite servermaybe pack these into a script one dayDefinitions: OLD - your old gitolite server NEW - your clean shiny new gitolite server ADMIN - doesn’t matter,">
+<meta name="keywords" content="git,gitolite">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Moving gitolite">
 <meta property="og:url" content="http://lessmind.github.io/2015/10/09/Moving-gitolite/index.html">
 <meta property="og:site_name" content="Some notes">
-<meta property="og:description" content="Step by step introdutions to move a gitolite servermaybe pack these into a script one dayDefinitions:
-OLD - your old gitolite server
-NEW - your clean shiny new gitolite server
-ADMIN - doesn’t matter,">
+<meta property="og:description" content="Step by step introdutions to move a gitolite servermaybe pack these into a script one dayDefinitions: OLD - your old gitolite server NEW - your clean shiny new gitolite server ADMIN - doesn’t matter,">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2015-12-08T13:56:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Moving gitolite">
-<meta name="twitter:description" content="Step by step introdutions to move a gitolite servermaybe pack these into a script one dayDefinitions:
-OLD - your old gitolite server
-NEW - your clean shiny new gitolite server
-ADMIN - doesn’t matter,">
+<meta name="twitter:description" content="Step by step introdutions to move a gitolite servermaybe pack these into a script one dayDefinitions: OLD - your old gitolite server NEW - your clean shiny new gitolite server ADMIN - doesn’t matter,">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
   
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -44,7 +38,7 @@ ADMIN - doesn’t matter,">
   })();
 </script>
 
-</head>
+</head></html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -81,7 +75,7 @@ ADMIN - doesn’t matter,">
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lessmind.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lessmind.github.io"></form>
       </div>
     </div>
   </div>
@@ -122,21 +116,21 @@ ADMIN - doesn’t matter,">
 </ul>
 <h3 id="on_NEW">on <strong>NEW</strong></h3><p>use <code>sudo</code> whenever you need it</p>
 <p>install git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install git</span><br></pre></td></tr></table></figure></p>
-<p>create gitolite user<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd <span class="operator">-d</span> /opt/gitolite -m -p <span class="string">"!"</span> <span class="operator">-s</span> /bin/bash git</span><br></pre></td></tr></table></figure></p>
+<p>create gitolite user<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d /opt/gitolite -m -p <span class="string">"!"</span> -s /bin/bash git</span><br></pre></td></tr></table></figure></p>
 <p>intall gitolite<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">su git</span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"pubkey on ADMIN"</span> &gt; [USER].pub <span class="comment"># create admin key</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/sitaramc/gitolite.git</span><br><span class="line">mkdir -p ~/bin</span><br><span class="line">./gitolite/install -ln ~/bin</span><br><span class="line">gitolite setup -pk [USER].pub</span><br></pre></td></tr></table></figure></p>
 <p>get old repos back<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/tmp</span><br><span class="line">scp OLD:pack.tar ~/tmp</span><br><span class="line"><span class="built_in">cd</span> ~/tmp</span><br><span class="line">tar zxf pack.tar</span><br><span class="line">rm -rf repositories/gitolite-admin.git repositories/testing.git/ <span class="comment"># rm default repos</span></span><br><span class="line">mv repositories/* ~/repositories/</span><br></pre></td></tr></table></figure></p>
 <p>apply rc configs if the gitolite version between OLD and NEW are close enough</p>
 <p>or check any diff of ~/.gitolite.rc and ~/tmp/.gitolite.rc to manually apply it<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ~/tmp/.gitolite.rc ~/</span><br></pre></td></tr></table></figure></p>
-<p>restore hooks (this probably getting old, check <a href="http://gitolite.com/gitolite/cookbook.html#cb-hooks" target="_blank" rel="external">this</a> to manage hooks)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ~/tmp/.gitolite/hooks/common/* ~/.gitolite/hooks/common/</span><br></pre></td></tr></table></figure></p>
+<p>restore hooks (this probably getting old, check <a href="http://gitolite.com/gitolite/cookbook.html#cb-hooks" target="_blank" rel="noopener">this</a> to manage hooks)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ~/tmp/.gitolite/hooks/common/* ~/.gitolite/hooks/common/</span><br></pre></td></tr></table></figure></p>
 <h3 id="on_ADMIN">on ADMIN</h3><p>get a newest admin configs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@OLD:gitolite-admin</span><br><span class="line"><span class="built_in">cd</span> gitolite-admin</span><br></pre></td></tr></table></figure></p>
 <p>set new origin<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin git@NEW:gitolite-admin</span><br></pre></td></tr></table></figure></p>
 <p>test is the admin key worked<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br></pre></td></tr></table></figure></p>
-<p>push configs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push <span class="operator">-f</span></span><br></pre></td></tr></table></figure></p>
+<p>push configs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="civnh28hb0016fxicc33p5hom" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="ck15161r60005ri4nzmhi3pze" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Moving-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -239,7 +233,7 @@ ADMIN - doesn’t matter,">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 nevermind<br>
+      &copy; 2019 nevermind<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -275,11 +269,11 @@ ADMIN - doesn’t matter,">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
   </div>
 </body>
 </html>

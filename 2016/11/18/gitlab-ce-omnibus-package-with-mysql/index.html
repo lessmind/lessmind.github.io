@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <script data-ad-client="ca-pub-7758453423688329" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <meta charset="utf-8">
   
   <title>Configure Gitlab CE (Omnibus package) to work with MySQL | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Mostly follow instructions here, thanks for vitalis
-This post just created in case that post gone, and some personal note.">
+  <meta name="description" content="Mostly follow instructions here, thanks for vitalis This post just created in case that post gone, and some personal note.">
+<meta name="keywords" content="gitlab,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Configure Gitlab CE (Omnibus package) to work with MySQL">
 <meta property="og:url" content="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/index.html">
 <meta property="og:site_name" content="Some notes">
-<meta property="og:description" content="Mostly follow instructions here, thanks for vitalis
-This post just created in case that post gone, and some personal note.">
+<meta property="og:description" content="Mostly follow instructions here, thanks for vitalis This post just created in case that post gone, and some personal note.">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2016-11-18T08:02:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Configure Gitlab CE (Omnibus package) to work with MySQL">
-<meta name="twitter:description" content="Mostly follow instructions here, thanks for vitalis
-This post just created in case that post gone, and some personal note.">
+<meta name="twitter:description" content="Mostly follow instructions here, thanks for vitalis This post just created in case that post gone, and some personal note.">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
   
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -38,7 +38,7 @@ This post just created in case that post gone, and some personal note.">
   })();
 </script>
 
-</head>
+</head></html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -75,7 +75,7 @@ This post just created in case that post gone, and some personal note.">
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lessmind.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://lessmind.github.io"></form>
       </div>
     </div>
   </div>
@@ -103,12 +103,12 @@ This post just created in case that post gone, and some personal note.">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Mostly follow instructions <a href="https://blog.vitalis.io/posts/2016/04/04/gitlabce-omnibus-mysql/" target="_blank" rel="external">here</a>, thanks for <a href="https://blog.vitalis.io/" target="_blank" rel="external">vitalis</a></p>
+        <p>Mostly follow instructions <a href="https://blog.vitalis.io/posts/2016/04/04/gitlabce-omnibus-mysql/" target="_blank" rel="noopener">here</a>, thanks for <a href="https://blog.vitalis.io/" target="_blank" rel="noopener">vitalis</a></p>
 <p>This post just created in case that post gone, and some personal note.</p>
 <a id="more"></a>
 <p>First, install gitlab-ce by the official instructions, and create a mysql database and a user with access ready for gitlab.</p>
 <p>Here goes the configurations</p>
-<p>Switch db adaptor to mysql2, fill up connection info, disable PostgreSQL<br><figure class="highlight ruby"><figcaption><span>/etc/gitlab/gitlab.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># configure to use mysql</span></span><br><span class="line">gitlab_rails[<span class="string">'db_adapter'</span>] = <span class="string">"mysql2"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_encoding'</span>] = <span class="string">"utf8"</span> <span class="comment"># must be utf8, utf8mb4 will cause index size too large error</span></span><br><span class="line">gitlab_rails[<span class="string">'db_database'</span>] = <span class="string">"gitlabhq_production"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_username'</span>] = <span class="string">"gitlab"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_password'</span>] = <span class="string">"gitlabdb"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_host'</span>] = <span class="string">"127.0.0.1"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_port'</span>] = <span class="number">3306</span></span><br><span class="line">postgresql[<span class="string">'enable'</span>] = <span class="keyword">false</span></span><br></pre></td></tr></table></figure></p>
+<p>Switch db adaptor to mysql2, fill up connection info, disable PostgreSQL<br><figure class="highlight ruby"><figcaption><span>/etc/gitlab/gitlab.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># configure to use mysql</span></span><br><span class="line">gitlab_rails[<span class="string">'db_adapter'</span>] = <span class="string">"mysql2"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_encoding'</span>] = <span class="string">"utf8"</span> <span class="comment"># must be utf8, utf8mb4 will cause index size too large error</span></span><br><span class="line">gitlab_rails[<span class="string">'db_database'</span>] = <span class="string">"gitlabhq_production"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_username'</span>] = <span class="string">"gitlab"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_password'</span>] = <span class="string">"gitlabdb"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_host'</span>] = <span class="string">"127.0.0.1"</span></span><br><span class="line">gitlab_rails[<span class="string">'db_port'</span>] = <span class="number">3306</span></span><br><span class="line">postgresql[<span class="string">'enable'</span>] = <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
 <p>Build <code>mysql2</code> gem<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install libmysqlclient-dev gcc <span class="comment"># need some dependency</span></span><br><span class="line"><span class="built_in">cd</span> /opt/gitlab/embedded/bin/ <span class="comment"># use the gem binary package builded</span></span><br><span class="line">./gem install mysql2 -- --with-mysql-lib=/usr/lib64/mysql</span><br></pre></td></tr></table></figure></p>
 <p>Tell GitLab bundle to ignore PostgreSQL instead of MySQL<br>(will be revert if gitlab-ce updated, need to manuallly redo when update)<br><figure class="highlight bash"><figcaption><span>/opt/gitlab/embedded/service/gitlab-rails/.bundle/config</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">BUNDLE_RETRY: <span class="string">"5"</span></span><br><span class="line">BUNDLE_PATH: <span class="string">"/opt/gitlab/embedded/service/gem"</span></span><br><span class="line">BUNDLE_JOBS: <span class="string">"9"</span></span><br><span class="line">BUNDLE_WITHOUT: <span class="string">"development:test:postgres"</span></span><br><span class="line">BUNDLE_DISABLE_SHARED_GEMS: <span class="string">"true"</span></span><br></pre></td></tr></table></figure></p>
 <p>Install bundle<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/gitlab/embedded/service/gitlab-rails</span><br><span class="line">/opt/gitlab/embedded/bin/bundle install</span><br></pre></td></tr></table></figure></p>
@@ -117,7 +117,7 @@ This post just created in case that post gone, and some personal note.">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" data-id="civnh28go0008fxicbo313nse" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" data-id="ck15161rf000iri4n54elyhfd" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -216,7 +216,7 @@ This post just created in case that post gone, and some personal note.">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 nevermind<br>
+      &copy; 2019 nevermind<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -252,11 +252,11 @@ This post just created in case that post gone, and some personal note.">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
   </div>
 </body>
 </html>
