@@ -78,6 +78,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-quasar-backend-dev-nginx-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/03/quasar-backend-dev-nginx-config/" class="article-date">
+  <time datetime="2019-10-03T06:29:10.000Z" itemprop="datePublished">2019-10-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/03/quasar-backend-dev-nginx-config/">Nginx dev config for Quasar HMR with backend api</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="To_serve_dev_site_on_static_url_of_https://dev-host-to/$project_through_nginx_server">To serve dev site on static url of <a href="https://dev.host.to/$project" target="_blank" rel="noopener">https://dev.host.to/$project</a> through nginx server</h3><h4 id="Nginx_snippet">Nginx snippet</h4><figure class="highlight nginx"><figcaption><span>/etc/nginx/snippets/quasar.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">set</span> <span class="variable">$devport</span> <span class="number">9999</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># serve index.php at https://dev.host.to/$project/backend</span></span><br><span class="line"><span class="attribute">location</span> <span class="regexp">~ ^/(?&lt;project&gt;\w+)/backend/</span> &#123;</span><br><span class="line">	<span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /<span class="variable">$project</span>/backend/index.php<span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># serve web socket of quasar dev server at https://dev.host.to/sockjs-node for HMR</span></span><br><span class="line"><span class="attribute">location</span> /sockjs-node &#123;</span><br><span class="line">	<span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">	<span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">	<span class="attribute">proxy_set_header</span> Connection <span class="string">"Upgrade"</span>;</span><br><span class="line">	<span class="attribute">proxy_pass</span> http://127.0.0.1:<span class="variable">$devport</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># serve quasar dev server at https://dev.host.to/$project/</span></span><br><span class="line"><span class="attribute">location</span> <span class="regexp">~ ^/(?&lt;project&gt;\w+)/(?&lt;path&gt;.*)</span> &#123;</span><br><span class="line">	<span class="attribute">proxy_pass</span> http://127.0.0.1:<span class="variable">$devport</span>/<span class="variable">$path</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Quasar_conf">Quasar conf</h4><figure class="highlight javascript"><figcaption><span>quasar.conf.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">ctx</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    build: &#123;</span><br><span class="line">      publicPath: <span class="string">'/$project/'</span>,</span><br><span class="line">      forceDevPublicPath: <span class="literal">true</span>,</span><br><span class="line">      vueRouterMode: <span class="string">'history'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    devServer: &#123;</span><br><span class="line">      publicPath: <span class="string">'/'</span>,</span><br><span class="line">      historyApiFallback: <span class="literal">true</span>,</span><br><span class="line">      public: <span class="string">'https://dev.host.to/$project'</span>,</span><br><span class="line">      port: <span class="number">9999</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2019/10/03/quasar-backend-dev-nginx-config/" data-id="ck1abkweq001mcklviof08put" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2019/10/03/quasar-backend-dev-nginx-config/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIS/">MIS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-gitlab-ce-omnibus-package-with-mysql" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" class="article-date">
@@ -110,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" data-id="ck15161rf000iri4n54elyhfd" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" data-id="ck1abkwe1000fcklvgwq6a44e" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2016/11/18/gitlab-ce-omnibus-package-with-mysql/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -160,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/" data-id="ck15161re000fri4ne97p41nr" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/" data-id="ck1abkwdz000bcklvv213yud2" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/12/08/Using-gmail-api-via-service-account-credential/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -209,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="ck15161rb000ari4ncyud7jee" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/" data-id="ck1abkwdv0007cklv81jjydsq" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/11/26/RabbitMQ-server-install/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -254,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="ck15161r00001ri4nj7y6jqjp" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/15/Git-daemon/" data-id="ck1abkwe6000mcklv74sjc1qz" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/15/Git-daemon/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -295,7 +336,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="ck15161r80007ri4nyguvlyec" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/" data-id="ck1abkwdu0006cklvfu2bjjtg" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/13/New-hexo-post-auto-open-with-editor/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -347,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="ck15161rc000bri4na7ajaqbj" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/" data-id="ck1abkwdy000acklv7tog3zj8" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/11/Redmine-repositories-from-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -389,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="ck15161ri000mri4nwolr817f" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/" data-id="ck1abkwe3000icklvfp5w1z5m" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/mutt-on-OS-X/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -437,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="ck15161r70006ri4njek4tx9w" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/" data-id="ck1abkwds0005cklv62vwdabk" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Nginx-with-Passenger/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -487,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="ck15161r20002ri4ngdrasr09" class="article-share-link">Share</a>
+      <a data-url="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/" data-id="ck1abkwdp0002cklvxszlxiiq" class="article-share-link">Share</a>
       
         <a href="http://lessmind.github.io/2015/10/09/Install-Errbit-4-x/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -501,58 +542,10 @@
 
 
   
-    <article id="post-Moving-gitolite" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/09/Moving-gitolite/" class="article-date">
-  <time datetime="2015-10-09T12:48:50.000Z" itemprop="datePublished">2015-10-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/MIS/">MIS</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/09/Moving-gitolite/">Moving gitolite</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Step_by_step_introdutions_to_move_a_gitolite_server">Step by step introdutions to move a gitolite server</h2><h6 id="maybe_pack_these_into_a_script_one_day">maybe pack these into a script one day</h6><h3 id="Definitions:">Definitions:</h3><ul>
-<li>OLD - your old gitolite server</li>
-<li>NEW - your clean shiny new gitolite server</li>
-<li>ADMIN - doesn’t matter, any machine can execute git and have gitolite-admin acces in <strong>OLD</strong>
-        
-          <p class="article-more-link">
-            <a href="/2015/10/09/Moving-gitolite/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://lessmind.github.io/2015/10/09/Moving-gitolite/" data-id="ck15161r60005ri4nzmhi3pze" class="article-share-link">Share</a>
-      
-        <a href="http://lessmind.github.io/2015/10/09/Moving-gitolite/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitolite/">gitolite</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </section>
         
@@ -563,6 +556,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/10/03/quasar-backend-dev-nginx-config/">Nginx dev config for Quasar HMR with backend api</a>
+          </li>
         
           <li>
             <a href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/">Configure Gitlab CE (Omnibus package) to work with MySQL</a>
@@ -578,10 +575,6 @@
         
           <li>
             <a href="/2015/10/15/Git-daemon/">Git daemon</a>
-          </li>
-        
-          <li>
-            <a href="/2015/10/13/New-hexo-post-auto-open-with-editor/">New hexo post auto open with editor</a>
           </li>
         
       </ul>
@@ -602,7 +595,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-API/">Google API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/message-queue/">message queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-API/">Google API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MIS/">MIS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/errbit/">errbit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-daemon/">git-daemon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitolite/">gitolite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/message-queue/">message queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutt/">mutt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redmine/">redmine</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -611,7 +604,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 

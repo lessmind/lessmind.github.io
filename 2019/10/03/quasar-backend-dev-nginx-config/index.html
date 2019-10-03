@@ -4,15 +4,20 @@
   <script data-ad-client="ca-pub-7758453423688329" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <meta charset="utf-8">
   
-  <title>Archives: 2015/11 | Some notes</title>
+  <title>Nginx dev config for Quasar HMR with backend api | Some notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Some notes">
-<meta property="og:url" content="http://lessmind.github.io/archives/2015/11/index.html">
+  <meta name="description" content="To serve dev site on static url of https://dev.host.to/$project through nginx serverNginx snippet/etc/nginx/snippets/quasar.conf12345678910111213141516171819set $devport 9999;# serve index.php at http">
+<meta name="keywords" content="MIS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx dev config for Quasar HMR with backend api">
+<meta property="og:url" content="http://lessmind.github.io/2019/10/03/quasar-backend-dev-nginx-config/index.html">
 <meta property="og:site_name" content="Some notes">
+<meta property="og:description" content="To serve dev site on static url of https://dev.host.to/$project through nginx serverNginx snippet/etc/nginx/snippets/quasar.conf12345678910111213141516171819set $devport 9999;# serve index.php at http">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-03T06:44:37.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Some notes">
+<meta name="twitter:title" content="Nginx dev config for Quasar HMR with backend api">
+<meta name="twitter:description" content="To serve dev site on static url of https://dev.host.to/$project through nginx serverNginx snippet/etc/nginx/snippets/quasar.conf12345678910111213141516171819set $devport 9999;# serve index.php at http">
 <meta name="twitter:creator" content="@nevermindChao">
   
     <link rel="alternative" href="/atom.xml" title="Some notes" type="application/atom+xml">
@@ -76,39 +81,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/26/RabbitMQ-server-install/" class="archive-article-date">
-  <time datetime="2015-11-26T09:26:31.000Z" itemprop="datePublished">Nov 26</time>
+        <section id="main"><article id="post-quasar-backend-dev-nginx-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/03/quasar-backend-dev-nginx-config/" class="article-date">
+  <time datetime="2019-10-03T06:29:10.000Z" itemprop="datePublished">2019-10-03</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/26/RabbitMQ-server-install/">RabbitMQ server install</a>
+    <h1 class="article-title" itemprop="name">
+      Nginx dev config for Quasar HMR with backend api
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="To_serve_dev_site_on_static_url_of_https://dev-host-to/$project_through_nginx_server">To serve dev site on static url of <a href="https://dev.host.to/$project" target="_blank" rel="noopener">https://dev.host.to/$project</a> through nginx server</h3><h4 id="Nginx_snippet">Nginx snippet</h4><figure class="highlight nginx"><figcaption><span>/etc/nginx/snippets/quasar.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">set</span> <span class="variable">$devport</span> <span class="number">9999</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># serve index.php at https://dev.host.to/$project/backend</span></span><br><span class="line"><span class="attribute">location</span> <span class="regexp">~ ^/(?&lt;project&gt;\w+)/backend/</span> &#123;</span><br><span class="line">	<span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /<span class="variable">$project</span>/backend/index.php<span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># serve web socket of quasar dev server at https://dev.host.to/sockjs-node for HMR</span></span><br><span class="line"><span class="attribute">location</span> /sockjs-node &#123;</span><br><span class="line">	<span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">	<span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">	<span class="attribute">proxy_set_header</span> Connection <span class="string">"Upgrade"</span>;</span><br><span class="line">	<span class="attribute">proxy_pass</span> http://127.0.0.1:<span class="variable">$devport</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># serve quasar dev server at https://dev.host.to/$project/</span></span><br><span class="line"><span class="attribute">location</span> <span class="regexp">~ ^/(?&lt;project&gt;\w+)/(?&lt;path&gt;.*)</span> &#123;</span><br><span class="line">	<span class="attribute">proxy_pass</span> http://127.0.0.1:<span class="variable">$devport</span>/<span class="variable">$path</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Quasar_conf">Quasar conf</h4><figure class="highlight javascript"><figcaption><span>quasar.conf.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">ctx</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    build: &#123;</span><br><span class="line">      publicPath: <span class="string">'/$project/'</span>,</span><br><span class="line">      forceDevPublicPath: <span class="literal">true</span>,</span><br><span class="line">      vueRouterMode: <span class="string">'history'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    devServer: &#123;</span><br><span class="line">      publicPath: <span class="string">'/'</span>,</span><br><span class="line">      historyApiFallback: <span class="literal">true</span>,</span><br><span class="line">      public: <span class="string">'https://dev.host.to/$project'</span>,</span><br><span class="line">      port: <span class="number">9999</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://lessmind.github.io/2019/10/03/quasar-backend-dev-nginx-config/" data-id="ck1abkweq001mcklviof08put" class="article-share-link">Share</a>
+      
+        <a href="http://lessmind.github.io/2019/10/03/quasar-backend-dev-nginx-config/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIS/">MIS</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/18/gitlab-ce-omnibus-package-with-mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Configure Gitlab CE (Omnibus package) to work with MySQL</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -199,11 +228,13 @@
 <script>
   var disqus_shortname = 'nevermindsnote';
   
+  var disqus_url = 'http://lessmind.github.io/2019/10/03/quasar-backend-dev-nginx-config/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//go.disqus.com/count.js';
+    dsq.src = '//go.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
